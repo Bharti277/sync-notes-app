@@ -51,16 +51,17 @@ export const NotesProvider = ({ children }) => {
 
     for (let note of unsynced) {
       try {
-        const response = await createNote(note);
+        const { id, ...noteWithoutId } = note;
+        const response = await createNote(noteWithoutId);
 
-        if (response.ok || response.status === 409) {
-          await db.notes.update(note.id, { synced: true });
-        } else {
-          await updateNote(note);
-          await db.notes.update(note.id, { synced: true });
+        if (response.ok) {
+          const savedNote = await response.json();
+
+          await db.notes.delete(id);
+          await db.notes.add({ ...savedNote, synced: true });
         }
       } catch (e) {
-        console.error("Sync failed for", e, note.id);
+        console.error("Sync failed for", note.id, e);
       }
     }
 
