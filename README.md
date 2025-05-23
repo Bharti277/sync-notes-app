@@ -8,7 +8,7 @@ Automatic syncing with backend when online
 
 Online/offline status detection
 
-Search notes by title
+Search notes by title or content
 
 Sync status indicator for each note
 
