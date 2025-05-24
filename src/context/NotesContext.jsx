@@ -10,7 +10,6 @@ export const NotesProvider = ({ children }) => {
   const [notes, setNotes] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
-  console.log(isOnline, "isOnline in side context api");
 
   const loadLocalNotes = async () => {
     const allNotes = await db.notes.toArray();
@@ -45,6 +44,28 @@ export const NotesProvider = ({ children }) => {
       window.removeEventListener("offline", handleOffline);
     };
   }, []);
+
+  // const syncNotes = async () => {
+  //   const unsynced = await db.notes.where("synced").equals(false).toArray();
+
+  //   for (let note of unsynced) {
+  //     try {
+  //       const { id, ...noteWithoutId } = note;
+  //       const response = await createNote(noteWithoutId);
+
+  //       if (response.ok) {
+  //         const savedNote = await response.json();
+
+  //         await db.notes.delete(id);
+  //         await db.notes.add({ ...savedNote, synced: true });
+  //       }
+  //     } catch (e) {
+  //       console.error("Sync failed for", note.id, e);
+  //     }
+  //   }
+
+  //   loadLocalNotes();
+  // };
 
   const syncNotes = async () => {
     const unsynced = await db.notes.where("synced").equals(false).toArray();

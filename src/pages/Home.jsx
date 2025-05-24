@@ -7,7 +7,7 @@ import { useNotes } from "../context/NotesContext";
 
 const Home = () => {
   const { notes, addNote, removeNote, isLoaded } = useNotes();
-  console.log(notes, addNote, removeNote, isLoaded, "notes");
+  console.log(notes, isLoaded, "notes");
 
   const [selectedId, setSelectedId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");

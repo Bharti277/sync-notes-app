@@ -1,3 +1,11 @@
 {
-  "notes": []
+  "notes": [
+    {
+      "id": 1,
+      "title": "Title",
+      "content": "# Spider Man",
+      "updatedAt": "",
+      "synced": false
+    }
+  ]
 }
